@@ -27,7 +27,6 @@ int main()
   }
   std::cout << "\n";
 
-  BTreeIt< int, 3 > it2 = {2, &child_4};
   std::cout << value(it);
   while (hasPrev(it))
   {

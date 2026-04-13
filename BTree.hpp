@@ -53,4 +53,45 @@ BTreeIt< T, K > next(BTreeIt< T, K > it)
   return {0, nullptr};
 }
 
+template< class T, size_t K >
+BTreeIt< T, K > max(BTree< T, K >* root)
+{
+  while (root->childs[K])
+  {
+    root = root->childs[K];
+  }
+  return {K - 1, root};
+}
+
+template< class T, size_t K >
+BTreeIt< T, K > prev(BTreeIt< T, K > it)
+{
+  BTree< T, K >* child = it.current->childs[it.s];
+  if (child) return max< T, K >(child);
+  if (it.s > 0) return {it.s - 1, it.current};
+  BTree< T, K >* cur = it.current;
+  while (cur->parent)
+  {
+    BTree< T, K >* parent = cur->parent;
+    for (size_t i = 1; i < K + 1; ++i)
+    {
+      if (parent->childs[i] == cur) return {i - 1, parent};
+    }
+    cur = cur->parent;
+  }
+  return {0, nullptr};
+}
+
+template< class T, size_t K >
+bool hasNext(BTreeIt< T, K > it)
+{
+  return next(it).current;
+}
+
+template< class T, size_t K >
+bool hasPrev(BTreeIt< T, K > it)
+{
+  return prev(it).current;
+}
+
 #endif

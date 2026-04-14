@@ -19,19 +19,18 @@ int main()
   child_4.childs[1] = &child_6;
 
   BTreeIt< int, 3 > it = {0, &child_1};
-  std::cout << value(it);
   while (hasNext(it))
   {
+    std::cout << value(it) << " ";
     it = next(it);
-    std::cout << " " << value(it);
   }
   std::cout << "\n";
 
-  std::cout << value(it);
+  it = {2, &child_4};
   while (hasPrev(it))
   {
+    std::cout << value(it) << " ";
     it = prev(it);
-    std::cout << " " << value(it);
   }
   std::cout << "\n";
 }
